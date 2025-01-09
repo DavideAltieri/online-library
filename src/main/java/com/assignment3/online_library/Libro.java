@@ -9,17 +9,13 @@ public class Libro {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String titolo;
-    private String annoRilascio;
-    @ManyToOne
-    @JoinColumn(name = "autore_id")
-    private Autore autore;
-    @ManyToOne
-    @JoinColumn(name = "genere_id")
-    private Genere genere;
+    private int annoRilascio;
+    private String autore;
+    private String genere;
 
     protected Libro() {}
 
-    public Libro(String titolo, Autore autore, Genere genere, String annoRilascio) {
+    public Libro(String titolo, String autore, String genere, int annoRilascio) {
         this.titolo = titolo;
         this.autore = autore;
         this.genere = genere;
@@ -30,7 +26,7 @@ public class Libro {
     public String toString() {
         return String.format(
                 "Libro[id=%d, titolo='%s', autore='%s', genere='%s', annoRilascio='%s']",
-                id, titolo, autore.getNome() + "" + autore.getCognome(), genere.getNome(), annoRilascio);
+                id, titolo, autore, genere, annoRilascio);
     }
 
     public Long getId() {
@@ -42,15 +38,31 @@ public class Libro {
     }
 
     public String getAutore() {
-        return autore.getNome() + "" + autore.getCognome();
+        return autore;
     }
 
     public String getGenere() {
-        return genere.getNome();
+        return genere;
     }
 
-    public String getAnnoRilascio() {
+    public int getAnnoRilascio() {
         return annoRilascio;
+    }
+
+    public void setTitolo(String titolo) {
+        this.titolo = titolo;
+    }
+
+    public void setAutore(String autore) {
+        this.autore = autore;
+    }
+
+    public void setGenere(String genere) {
+        this.genere = genere;
+    }
+
+    public void setAnnoRilascio(int annoRilascio) {
+        this.annoRilascio = annoRilascio;
     }
 }
 

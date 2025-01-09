@@ -8,10 +8,10 @@ public interface LibroRepository extends CrudRepository<Libro, Long> {
 
     List<Libro> findByTitolo(String titolo);
 
-    List<Libro> findByAutore(Autore autore);
+    List<Libro> findByAutore(String autore);
 
-    List<Libro> findByGenere(Genere genere);
+    List<Libro> findByGenere(String genere);
 
-    List<Libro> findByAnnoRilascio(String annoRilascio);
+    List<Libro> findByAnnoRilascio(int annoRilascio);
 
 }
