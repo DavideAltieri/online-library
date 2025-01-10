@@ -15,7 +15,8 @@ public class Libro {
 
     protected Libro() {}
 
-    public Libro(String titolo, String autore, String genere, int annoRilascio) {
+    public Libro(Long id, String titolo, String autore, String genere, int annoRilascio) {
+        this.id = id;
         this.titolo = titolo;
         this.autore = autore;
         this.genere = genere;
@@ -49,20 +50,5 @@ public class Libro {
         return annoRilascio;
     }
 
-    public void setTitolo(String titolo) {
-        this.titolo = titolo;
-    }
-
-    public void setAutore(String autore) {
-        this.autore = autore;
-    }
-
-    public void setGenere(String genere) {
-        this.genere = genere;
-    }
-
-    public void setAnnoRilascio(int annoRilascio) {
-        this.annoRilascio = annoRilascio;
-    }
 }
 

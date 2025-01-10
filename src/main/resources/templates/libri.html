@@ -5,16 +5,35 @@
     <meta charset="UTF-8">
     <title>Libri</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        table th, table td {
+            text-align: center;
+            vertical-align: middle;
+        }
+        /* Rimuovi bordi e colore di sfondo per celle vuote */
+        table th:empty, table td:empty {
+            border: 1px solid transparent;
+            background-color: white;
+        }
+    </style>
 </head>
 <body>
 <h1 style="text-align: center;">Lista dei Libri</h1>
 <div class="container">
     <div class="mb-3">
         <strong>Ordina per:</strong>
-        <a th:href="@{/libri(sortBy='titolo')}">Titolo</a> |
-        <a th:href="@{/libri(sortBy='autore')}">Autore</a> |
-        <a th:href="@{/libri(sortBy='annoRilascio')}">Anno di Rilascio</a> |
-        <a th:href="@{/libri(sortBy='genere')}">Genere</a>
+        <a th:href="@{/libri(sortBy='titolo', order=${currentSortBy == 'titolo' and currentOrder == 'asc' ? 'desc' : 'asc'})}">
+            Titolo <span th:text="${currentSortBy == 'titolo' ? (currentOrder == 'asc' ? '▲' : '▼') : ''}"></span>
+        </a> |
+        <a th:href="@{/libri(sortBy='autore', order=${currentSortBy == 'autore' and currentOrder == 'asc' ? 'desc' : 'asc'})}">
+            Autore <span th:text="${currentSortBy == 'autore' ? (currentOrder == 'asc' ? '▲' : '▼') : ''}"></span>
+        </a> |
+        <a th:href="@{/libri(sortBy='annoRilascio', order=${currentSortBy == 'annoRilascio' and currentOrder == 'asc' ? 'desc' : 'asc'})}">
+            Anno di Rilascio <span th:text="${currentSortBy == 'annoRilascio' ? (currentOrder == 'asc' ? '▲' : '▼') : ''}"></span>
+        </a> |
+        <a th:href="@{/libri(sortBy='genere', order=${currentSortBy == 'genere' and currentOrder == 'asc' ? 'desc' : 'asc'})}">
+            Genere <span th:text="${currentSortBy == 'genere' ? (currentOrder == 'asc' ? '▲' : '▼') : ''}"></span>
+        </a>
     </div>
     <table class="table table-striped table-hover table-bordered">
         <thead class="table-dark">
@@ -23,6 +42,8 @@
             <th>Autore</th>
             <th>Genere</th>
             <th>Anno di Rilascio</th>
+            <th></th>
+            <th></th>
         </tr>
         </thead>
         <tbody>
@@ -31,6 +52,12 @@
             <td th:text="${libro.autore}"></td>
             <td th:text="${libro.genere}"></td>
             <td th:text="${libro.annoRilascio}"></td>
+            <td>
+                <a th:href="@{/libri/modifica/{id}(id=${libro.id})}">Modifica</a>
+            </td>
+            <td>
+                <a th:href="@{/libri/elimina/{id}(id=${libro.id})}">Elimina</a>
+            </td>
         </tr>
         </tbody>
     </table>

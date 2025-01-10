@@ -31,29 +31,40 @@ public class LibroController {
      */
 
     @GetMapping
-    public String getLibri(@RequestParam(value = "sortBy", defaultValue = "titolo") String sortBy, Model model) {
+    public String getLibri(@RequestParam(value = "sortBy", defaultValue = "titolo") String sortBy,
+                           @RequestParam(value = "order", defaultValue = "asc") String order,
+                           Model model) {
+
         List<Libro> libri = (List<Libro>) libroRepository.findAll();
 
+        Comparator<Libro> comparator;
         // Ordinamento dinamico
         switch (sortBy) {
             case "titolo":
-                libri.sort(Comparator.comparing(Libro::getTitolo));
+                comparator = Comparator.comparing(Libro::getTitolo);
                 break;
             case "autore":
-                libri.sort(Comparator.comparing(Libro::getAutore));
+                comparator = Comparator.comparing(Libro::getAutore);
                 break;
             case "annoRilascio":
-                libri.sort(Comparator.comparingInt(Libro::getAnnoRilascio));
+                comparator = Comparator.comparingInt(Libro::getAnnoRilascio);
                 break;
             case "genere":
-                libri.sort(Comparator.comparing(Libro::getGenere));
+                comparator = Comparator.comparing(Libro::getGenere);
                 break;
             default:
                 throw new IllegalArgumentException("Campo di ordinamento non valido: " + sortBy);
         }
 
+        // Inverti l'ordine se necessario
+        if ("desc".equalsIgnoreCase(order)) {
+            comparator = comparator.reversed();
+        }
 
+        libri.sort(comparator);
         model.addAttribute("libri", libri);
+        model.addAttribute("currentSortBy", sortBy);
+        model.addAttribute("currentOrder", order);
         return "libri";
     }
 
@@ -77,15 +88,19 @@ public class LibroController {
         Libro libro = libroRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Libro non trovato con ID: " + id));
         model.addAttribute("libro", libro);
-        return "edit-libro";
+        return "modifica_libro";
     }
 
     // Aggiorna un libro
-    @PostMapping("/modifica/{id}")
-    public String updateLibro(@PathVariable Long id, @ModelAttribute Libro libro) {
-        // libro.setId(id); // Assicura che l'ID rimanga invariato
-        libroRepository.save(libro);
-        return "redirect:/libri"; // Torna alla lista dei libri
+    @PostMapping("/modifica")
+    public String updateLibro(Libro libro) {
+        System.out.println("Libro ID: " + libro.getId());
+        System.out.println("Titolo: " + libro.getTitolo());
+        System.out.println("Autore: " + libro.getAutore());
+        System.out.println("Anno di Rilascio: " + libro.getAnnoRilascio());
+        System.out.println("Genere: " + libro.getGenere());
+        libroRepository.save(libro); // Salva il libro aggiornato
+        return "redirect:/libri";   // Ritorna alla lista dei libri
     }
 
     // Elimina un libro
