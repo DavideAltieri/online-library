@@ -20,8 +20,8 @@
         }
     </style>
 </head>
-<body>
-    <h1 style="text-align: center;">Modifica Libro</h1>
+<body style="background-color: #f2e1c1;">
+    <h1 style="text-align: center;">Modifica libro:</h1>
     <form th:action="@{/libri/modifica}" th:object="${libro}" method="post">
         <input type="hidden" name="id" th:value="${libro.id}">
         <table>
@@ -35,7 +35,7 @@
             </tr>
             <tr>
                 <td><label for="annoRilascio">Anno di Rilascio:</label></td>
-                <td><input type="number" id="annoRilascio" name="annoRilascio" th:value="${libro.annoRilascio}" required></td>
+                <td><input type="number" id="annoRilascio" name="annoRilascio" th:value="${libro.annoRilascio}" min="0" required></td>
             </tr>
             <tr>
                 <td><label for="genere">Genere:</label></td>

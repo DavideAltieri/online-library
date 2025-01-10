@@ -69,14 +69,14 @@ public class LibroController {
     }
 
     // Mostra il form per aggiungere un nuovo libro
-    @GetMapping("/nuovo")
+    @GetMapping("/aggiungi")
     public String showAddLibroForm(Model model) {
-        model.addAttribute("libro", new Libro()); // Modello vuoto per il form
-        return "add-libro";
+        model.addAttribute("libro", new Libro());
+        return "aggiungi_libro";
     }
 
     // Salva un nuovo libro
-    @PostMapping
+    @PostMapping("/aggiungi")
     public String addLibro(@ModelAttribute Libro libro) {
         libroRepository.save(libro);
         return "redirect:/libri"; // Torna alla lista dei libri
