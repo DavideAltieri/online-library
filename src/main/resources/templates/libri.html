@@ -25,11 +25,11 @@
                     <a th:href="@{/libri(sortBy='autore', order=${currentSortBy == 'autore' and currentOrder == 'asc' ? 'desc' : 'asc'})}">
                         Autore <span th:text="${currentSortBy == 'autore' ? (currentOrder == 'asc' ? '▲' : '▼') : ''}"></span>
                     </a> |
-                    <a th:href="@{/libri(sortBy='annoRilascio', order=${currentSortBy == 'annoRilascio' and currentOrder == 'asc' ? 'desc' : 'asc'})}">
-                        Anno di Rilascio <span th:text="${currentSortBy == 'annoRilascio' ? (currentOrder == 'asc' ? '▲' : '▼') : ''}"></span>
-                    </a> |
                     <a th:href="@{/libri(sortBy='genere', order=${currentSortBy == 'genere' and currentOrder == 'asc' ? 'desc' : 'asc'})}">
                         Genere <span th:text="${currentSortBy == 'genere' ? (currentOrder == 'asc' ? '▲' : '▼') : ''}"></span>
+                    </a> |
+                    <a th:href="@{/libri(sortBy='annoRilascio', order=${currentSortBy == 'annoRilascio' and currentOrder == 'asc' ? 'desc' : 'asc'})}">
+                        Anno di Rilascio <span th:text="${currentSortBy == 'annoRilascio' ? (currentOrder == 'asc' ? '▲' : '▼') : ''}"></span>
                     </a>
                 </td>
             </tr>
