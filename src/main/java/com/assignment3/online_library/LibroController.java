@@ -1,13 +1,10 @@
 package com.assignment3.online_library;
 
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.Comparator;
 import java.util.List;
-import org.springframework.data.domain.Sort;
 
 @Controller
 @RequestMapping("/libri")
@@ -18,17 +15,6 @@ public class LibroController {
     public LibroController(LibroRepository libroRepository) {
         this.libroRepository = libroRepository;
     }
-
-    /*
-    //Visualizza tutti i libri
-    @GetMapping
-    public String getAllLibri(Model model) {
-        List<Libro> libri = (List<Libro>) libroRepository.findAll();
-        model.addAttribute("libri", libri);
-        return "libri";
-    }
-
-     */
 
     @GetMapping
     public String getLibri(@RequestParam(value = "sortBy", defaultValue = "titolo") String sortBy,
@@ -77,7 +63,14 @@ public class LibroController {
 
     // Salva un nuovo libro
     @PostMapping("/aggiungi")
-    public String addLibro(@ModelAttribute Libro libro) {
+    public String addLibro(@ModelAttribute Libro libro, Model model) {
+        // Verifica se il libro esiste già verificando nome e autore
+        List<Libro> libriEsistenti = libroRepository.findByTitoloAndAutore(libro.getTitolo(), libro.getAutore());
+        if (!libriEsistenti.isEmpty()) {
+            // Se il libro esiste già, aggiunge un messaggio di errore al modello
+            model.addAttribute("errore", "Il libro esiste già nel database.");
+            return "aggiungi_libro";  // Torna alla pagina di aggiunta con il messaggio di errore
+        }
         libroRepository.save(libro);
         return "redirect:/libri"; // Torna alla lista dei libri
     }

@@ -33,17 +33,20 @@
       <td><input type="text" id="autore" name="autore" th:value="${libro.autore}" required></td>
     </tr>
     <tr>
-      <td><label for="annoRilascio">Anno di Rilascio:</label></td>
-      <td><input type="number" id="annoRilascio" name="annoRilascio" th:value="${libro.annoRilascio}" min="0" required></td>
-    </tr>
-    <tr>
       <td><label for="genere">Genere:</label></td>
       <td><input type="text" id="genere" name="genere" th:value="${libro.genere}" required></td>
+    </tr>
+    <tr>
+      <td><label for="annoRilascio">Anno di Rilascio:</label></td>
+      <td><input type="number" id="annoRilascio" name="annoRilascio" th:value="${libro.annoRilascio}" min="0" required></td>
     </tr>
     <tr>
       <td colspan="2" style="text-align: center;">
         <button type="submit" class="btn btn-primary">Aggiungi</button>
         <button type="button" class="btn btn-secondary" onclick="window.location.href='/libri';">Annulla</button>
+        <div th:if="${errore}" style="color: red; text-align: center;">
+          <p th:text="${errore}"></p>
+        </div>
       </td>
     </tr>
   </table>
