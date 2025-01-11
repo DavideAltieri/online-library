@@ -2,7 +2,7 @@ package com.assignment3.online_library;
 
 import jakarta.persistence.*;
 
-
+/* Classe entità che rappresenta un libro */
 @Entity
 public class Libro {
     @Id

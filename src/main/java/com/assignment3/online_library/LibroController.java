@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Comparator;
 import java.util.List;
 
+/* Controller delle richieste provenienti da "libri" */
 @Controller
 @RequestMapping("/libri")
 public class LibroController {
@@ -16,6 +17,8 @@ public class LibroController {
         this.libroRepository = libroRepository;
     }
 
+    /* Mapping che restituisce la lista di libri da mostrare. Considera anche l'ordine richiesto
+    dall'utente (ascendente o discendente) */
     @GetMapping
     public String getLibri(@RequestParam(value = "sortBy", defaultValue = "titolo") String sortBy,
                            @RequestParam(value = "order", defaultValue = "asc") String order,
@@ -23,7 +26,7 @@ public class LibroController {
 
         List<Libro> libri = (List<Libro>) libroRepository.findAll();
 
-        Comparator<Libro> comparator;
+        Comparator<Libro> comparator; // Memorizza il campo che verrà utilizzato per l'ordinamento
         // Ordinamento dinamico
         switch (sortBy) {
             case "titolo":
@@ -42,7 +45,7 @@ public class LibroController {
                 throw new IllegalArgumentException("Campo di ordinamento non valido: " + sortBy);
         }
 
-        // Inverti l'ordine se necessario
+        // Inverte l'ordine se richiesto dall'utente
         if ("desc".equalsIgnoreCase(order)) {
             comparator = comparator.reversed();
         }
@@ -61,7 +64,7 @@ public class LibroController {
         return "aggiungi_libro";
     }
 
-    // Salva un nuovo libro
+    // Salva un nuovo libro nel DB
     @PostMapping("/aggiungi")
     public String addLibro(@ModelAttribute Libro libro, Model model) {
         // Verifica se il libro esiste già verificando nome e autore
@@ -87,11 +90,6 @@ public class LibroController {
     // Aggiorna un libro
     @PostMapping("/modifica")
     public String updateLibro(Libro libro) {
-        System.out.println("Libro ID: " + libro.getId());
-        System.out.println("Titolo: " + libro.getTitolo());
-        System.out.println("Autore: " + libro.getAutore());
-        System.out.println("Anno di Rilascio: " + libro.getAnnoRilascio());
-        System.out.println("Genere: " + libro.getGenere());
         libroRepository.save(libro); // Salva il libro aggiornato
         return "redirect:/libri";   // Ritorna alla lista dei libri
     }
