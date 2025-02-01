@@ -4,7 +4,7 @@ OnlineLibrary
 
 Si tratta di una piccola applicazione web che funge da libreria online, in cui l'utente può aggiungere, modificare ed eliminare i libri presenti, oltre a visualizzare i libri precedentemente inseriti.
 
-Per avviare l'applicazione, è necessario disporre di JDK 17 (o superiore) e di MySQL. È anche disponibile una build JAR, creata tramite Maven, che può essere eseguita direttamente. Una volta avviata l'applicazione, è sufficiente visitare su un browser "http://localhost:8080/", che effettuerà automaticamente un redirect verso "http://localhost:8080/libri".
+Per avviare l'applicazione, è necessario disporre di JDK 17 (o superiore) e di MySQL. È anche disponibile una build JAR, creata tramite Maven, che può essere eseguita direttamente (eseguendo "java -jar target/online_library-0.0.1-SNAPSHOT.jar" all'interno della directory "online_library"). Una volta avviata l'applicazione, è sufficiente visitare su un browser "http://localhost:8080/", che effettuerà automaticamente un redirect verso "http://localhost:8080/libri".
 
 L'utente sarà in grado di ordinare i libri per nome, per autore, per genere, o per anno, sia in ordine crescente che in ordine decrescente.
 Per aggiungere un libro l'utente deve selezionare "Aggiungi un libro", che effettuerà un redirect verso un form per aggiungere un libro (con i relativi campi, l'utente deve riempire tutti i campi e rispettare determinati criteri).
