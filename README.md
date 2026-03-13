@@ -35,8 +35,7 @@ Books can also be **sorted** by:
 - Genre
 - Release year
 
-Sorting can be performed in **ascending** or **descending order**.
-
+Sorting can be performed in **ascending** or **descending order**.\
 To add a book, the user selects **"Add a book"**, which redirects to a form where the required fields must be filled in.
 
 All fields must be completed and must satisfy the specified validation constraints.
