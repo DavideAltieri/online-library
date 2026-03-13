@@ -1,22 +1,115 @@
-OnlineLibrary
+# Online Library
 
+This project is a small web application (implemented using **Spring MVC** and **JPA**) that functions as an online library, where users can **add, edit, delete, and view books** stored in the system.
 
+To run the application, the following requirements must be met:
 
-Si tratta di una piccola applicazione web (implementata con MVC e JPA) che funge da libreria online, in cui l'utente può aggiungere, modificare ed eliminare i libri presenti, oltre a visualizzare i libri precedentemente inseriti.
+- **JDK 17** (or higher)
+- **MySQL**
 
-Per avviare l'applicazione, è necessario disporre di JDK 17 (o superiore) e di MySQL. È anche disponibile una build JAR, creata tramite Maven, che può essere eseguita direttamente (eseguendo "java -jar target/online_library-0.0.1-SNAPSHOT.jar" all'interno della directory "online_library"). Una volta avviata l'applicazione, è sufficiente visitare su un browser "http://localhost:8080/", che effettuerà automaticamente un redirect verso "http://localhost:8080/libri".
+A **JAR build**, created using Maven, is also available and can be executed directly.
 
-L'utente sarà in grado di ordinare i libri per nome, per autore, per genere, o per anno, sia in ordine crescente che in ordine decrescente.
-Per aggiungere un libro l'utente deve selezionare "Aggiungi un libro", che effettuerà un redirect verso un form per aggiungere un libro (con i relativi campi, l'utente deve riempire tutti i campi e rispettare determinati criteri).
-Per modificare un libro l'utente deve selezionare "Modifica" nella riga del libro interessato, che effettuerà un redirect verso un form simile a quello di aggiunta, che permetterà all'utente di modificare i campi che desidera.
-Per eliminare un libro l'utente deve selezionare "Elimina" nella riga del libro interessato, verrà mostrato un messaggio di conferma.
+From inside the `online_library` directory, run:
 
-Per quanto riguarda l'applicazione, è stato utilizzato un pattern MVC (con Spring):
-	-Model: rappresenta la logica dei dati dell'applicazione. In questo caso, la classe "Libro" rientra in questa categoria, rappresenta i dati relativi ai libri (ad esempio: titolo, autore, genere e anno di rilascio). Si tratta di una classe @Entity mappata con JPA.
-	-View: rappresenta la parte dell'applicazione che l'utente vede e con cui interagisce. In questo caso, le pagine HTML utilizzano Thymeleaf. Nello specifico ci sono "libri.html", che rappresenta la home dell'applicazione, "aggiungi_libro.html", che rappresenta il form visualizzato quando si aggiunge un libro, e "modifica_libro.html", visualizzato quando si modifica un libro.
-	-Controller: gestisce le richieste dell'utente e coordina l'interazione tra il Model e la View. In questo caso, la classe "LibroController" è quella che gestisce le richieste HTTP. Nello specifico ci sono la richiesta di aggiunta gestita da "showAddLibroForm" (per il getMapping) e "addLibro" (per il postMapping), la richiesta di modifica gestita da "showUpdateLibroForm" (per il getMapping) e "updateLibro" (per il postMapping), la richiesta di eliminazione di un libro gestita da "deleteLibro" (che richiede il solo getMapping), ed infine la richiesta iniziale, gestita da "getLibri", che si occupa tra le altre cose di ordinare i libri in base a come viene richiesto dall'utente.
+java -jar target/online_library-0.0.1-SNAPSHOT.jar
 
-È presente anche un semplice "HomeController", che si occupa di effettuare automaticamente un redirect verso "libri", la home dell'applicazione.
-Per quanto riguarda il repository JPA l'interfaccia che se ne occupa è "LibroRepository", che estende JpaRepository. Le implementazioni d'accesso vengono gestite automaticamente e non è necessario indicarle esplicitamente, l'unico metodo indicato esplicitamente è "findByTitoloAndAutore", che viene utilizzato per verificare se esiste nel DB un libro con un determinato titolo ed un determinato autore.
+Once the application starts, open a browser and visit:
 
-Sono stati implementati anche dei test di unità per verificare il corretto funzionamento di ogni classe implementata nell'applicazione.
+http://localhost:8080/
+
+This will automatically redirect to:
+
+http://localhost:8080/libri
+
+The application allows users to:
+
+- View all previously inserted books
+- Add new books
+- Edit existing books
+- Delete books
+
+Books can also be **sorted** by:
+
+- Title
+- Author
+- Genre
+- Release year
+
+Sorting can be performed in **ascending** or **descending order**.
+
+To add a book, the user selects **"Add a book"**, which redirects to a form where the required fields must be filled in.
+
+All fields must be completed and must satisfy the specified validation constraints.
+
+To edit a book, the user selects **"Edit"** in the row corresponding to the desired book.
+
+This redirects to a form similar to the add form, allowing the user to modify the desired fields.
+
+To delete a book, the user selects **"Delete"** in the row corresponding to the desired book.
+
+A confirmation message is displayed before the deletion is completed.
+
+The application follows the **MVC (Model-View-Controller) pattern** using Spring.
+
+The **Model** represents the application's data logic.
+
+In this project the following class belongs to this layer:
+
+- `Libro`
+
+It represents the data associated with books, including:
+
+- title
+- author
+- genre
+- release year
+
+The class is annotated as a **JPA `@Entity`**, meaning it is mapped to a database table.
+
+The **View** represents the user interface built with **Thymeleaf**.
+
+The following templates are implemented:
+
+- `libri.html`  
+  Main page displaying the list of books.
+
+- `aggiungi_libro.html`  
+  Form used to add a new book.
+
+- `modifica_libro.html`  
+  Form used to edit an existing book.
+
+The **Controller** handles HTTP requests and coordinates the interaction between the Model and the View.
+
+The main controller is:
+
+- `LibroController`
+
+It manages the following operations:
+
+- Display the list of books and handle sorting (`getLibri`)
+- Show the form to add a book (`showAddLibroForm`)
+- Insert a new book (`addLibro`)
+- Show the form to update a book (`showUpdateLibroForm`)
+- Update a book (`updateLibro`)
+- Delete a book (`deleteLibro`)
+
+Another controller is also present:
+
+- `HomeController`
+
+This controller automatically redirects the root path `/` to `/libri`, which represents the application's home page.
+
+Database access is handled through:
+
+- `LibroRepository`
+
+This interface extends **`JpaRepository`**, allowing Spring to automatically generate the database access implementation.
+
+A custom method is also defined:
+
+`findByTitoloAndAutore`
+
+This method checks whether a book with a specific **title** and **author** already exists in the database.
+
+Unit tests were implemented to verify the correct behavior of each class in the application.
