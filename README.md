@@ -35,17 +35,15 @@ Books can also be **sorted** by:
 - Genre
 - Release year
 
-Sorting can be performed in **ascending** or **descending order**.\
-To add a book, the user selects **"Add a book"**, which redirects to a form where the required fields must be filled in.
+Sorting can be performed in **ascending** or **descending order**.
 
+To add a book, the user selects **"Add a book"**, which redirects to a form where the required fields must be filled in.
 All fields must be completed and must satisfy the specified validation constraints.
 
 To edit a book, the user selects **"Edit"** in the row corresponding to the desired book.
-
 This redirects to a form similar to the add form, allowing the user to modify the desired fields.
 
 To delete a book, the user selects **"Delete"** in the row corresponding to the desired book.
-
 A confirmation message is displayed before the deletion is completed.
 
 The application follows the **MVC (Model-View-Controller) pattern** using Spring.
